@@ -2,6 +2,7 @@ package interface_adapter.logout;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.login.LoginViewModel;
 import use_case.logout.LogoutOutputBoundary;
 import use_case.logout.LogoutOutputData;
@@ -18,7 +19,9 @@ public class LogoutPresenter implements LogoutOutputBoundary {
     public LogoutPresenter(ViewManagerModel viewManagerModel,
                           LoggedInViewModel loggedInViewModel,
                            LoginViewModel loginViewModel) {
-        // TODO: assign to the three instance variables.
+        this.viewManagerModel = viewManagerModel;
+        this.loggedInViewModel = loggedInViewModel;
+        this.loginViewModel = loginViewModel;
     }
 
     @Override
@@ -28,11 +31,10 @@ public class LogoutPresenter implements LogoutOutputBoundary {
 
         // We also need to set the username in the LoggedInState to
         // the empty string.
+        final LoggedInState loggedInState = loggedInViewModel.getState();
+        loggedInState.setUsername("");
+        loggedInViewModel.notifyStateChanged();
 
-        // TODO: have prepareSuccessView update the LoggedInState
-        // 1. get the LoggedInState out of the appropriate View Model,
-        // 2. set the username in the state to the empty string
-        // 3. notify so that the View that is listening is updated.
 
         // TODO: have prepareSuccessView update the LoginState
         // 1. get the LoginState out of the appropriate View Model,
